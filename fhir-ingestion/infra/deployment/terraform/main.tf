@@ -37,3 +37,13 @@ module "fhir_producer" {
   region                 = var.region
   fhir_producer_sa_email = module.iam.fhir_producer_sa_email
 }
+
+module "healthcare" {
+  source = "./modules/healthcare_dataset"
+
+  region = var.region
+
+  depends_on = [
+    module.iam
+  ]
+}
