@@ -1,4 +1,5 @@
 const childProcess = require("child_process");
+const util = require("util");
 const axios = require("axios").default;
 
 async function run() {
@@ -28,7 +29,7 @@ async function run() {
     },
   );
   console.log(`Created Patient resource with ID ${patientResource.data.id}`);
-  console.log(JSON.stringify(patientResource.data));
+  console.log(patientResource.data);
 
   const encounterResource = await axios.post(
     `https://healthcare.googleapis.com/v1/projects/${projectId}/locations/${locationId}/datasets/${datasetId}/fhirStores/${fhirStoreId}/fhir/Encounter`,
@@ -105,6 +106,25 @@ async function run() {
     `Created Observation resource with ID ${observationResource.data.id}`,
   );
   console.log(observationResource.data);
+
+  const getPatientEverythingResponse = await axios.get(
+    `https://healthcare.googleapis.com/v1/projects/${projectId}/locations/${locationId}/datasets/${datasetId}/fhirStores/${fhirStoreId}/fhir/Patient/${patientResource.data.id}/\$everything`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ContentType: "application/fhir+json",
+      },
+    },
+  );
+
+  console.log(`Got everything from Patient ${patientResource.data.id}`);
+  console.log(
+    util.inspect(getPatientEverythingResponse.data, {
+      showHidden: false,
+      depth: null,
+      colors: true,
+    }),
+  );
 }
 
 run();
