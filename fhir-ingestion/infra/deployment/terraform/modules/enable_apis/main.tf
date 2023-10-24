@@ -1,8 +1,10 @@
 locals {
   enable_apis = [
     "artifactregistry.googleapis.com",
+    "bigquery.googleapis.com",
     "cloudasset.googleapis.com",
     "cloudbuild.googleapis.com",
+    "healthcare.googleapis.com",
     "run.googleapis.com",
     "secretmanager.googleapis.com",
   ]
