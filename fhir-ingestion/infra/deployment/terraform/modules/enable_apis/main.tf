@@ -4,9 +4,12 @@ locals {
     "bigquery.googleapis.com",
     "cloudasset.googleapis.com",
     "cloudbuild.googleapis.com",
+    "eventarc.googleapis.com",
     "healthcare.googleapis.com",
     "run.googleapis.com",
     "secretmanager.googleapis.com",
+    "workflows.googleapis.com",
+    "workflowexecutions.googleapis.com"
   ]
 }
 

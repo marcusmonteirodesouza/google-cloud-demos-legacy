@@ -18,6 +18,10 @@ resource "google_healthcare_fhir_store" "default" {
       }
     }
   }
+
+  notification_config {
+    pubsub_topic = google_pubsub_topic.default_fhir_store_notifications.id
+  }
 }
 
 resource "google_bigquery_dataset" "default_fhir_store" {
@@ -25,4 +29,8 @@ resource "google_bigquery_dataset" "default_fhir_store" {
   description                = "${google_healthcare_dataset.default.name} default FHIR store streaming export dataset"
   location                   = var.region
   delete_contents_on_destroy = true
+}
+
+resource "google_pubsub_topic" "default_fhir_store_notifications" {
+  name = "default-fhir-store-notifications"
 }

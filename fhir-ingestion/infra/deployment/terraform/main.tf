@@ -47,3 +47,11 @@ module "healthcare" {
     module.iam
   ]
 }
+
+module "fhir_resource_creation_processing_workflow" {
+  source = "./modules/fhir_resource_creation_processing_workflow"
+
+  region                                        = var.region
+  fhir_resource_creation_processing_sa_email    = module.iam.fhir_resource_creation_processing_sa_email
+  default_fhir_store_notifications_pubsub_topic = module.healthcare.default_fhir_store_notifications_pubsub_topic
+}
