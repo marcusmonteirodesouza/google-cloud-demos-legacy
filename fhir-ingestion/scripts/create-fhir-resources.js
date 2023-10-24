@@ -1,3 +1,4 @@
+const childProcess = require("child_process");
 const axios = require("axios").default;
 
 async function run() {
@@ -6,10 +7,10 @@ async function run() {
   const datasetId = "northamerica-northeast1-default-dataset";
   const fhirStoreId = "default-fhir-store";
 
-  const parent = `projects/${projectId}/locations/${locationId}/datasets/${datasetId}/fhirStores/${fhirStoreId}`;
-
-  const token =
-    "ya29.a0AfB_byASIjSCNIo0mk4u7rL1vegBMlgvLXAPoGMrTYziDmI6XRiAk6NUjeZjb7dtUTzF7Y5IEfJG50lBzWfDmS-9zSmLS0_F4Yy_bS_eYINhjWPBZQvWVF3v0LguwXLVdzRMtjasEabc1eX0A9eQ3vtO351h71mlKDIGcPNqqewaCgYKAb8SARESFQGOcNnCVeT8hdrzR-pNm-wOMdU42Q0178";
+  const token = childProcess
+    .execSync("gcloud auth print-access-token")
+    .toString()
+    .trim();
 
   const patientResource = await axios.post(
     `https://healthcare.googleapis.com/v1/projects/${projectId}/locations/${locationId}/datasets/${datasetId}/fhirStores/${fhirStoreId}/fhir/Patient`,
