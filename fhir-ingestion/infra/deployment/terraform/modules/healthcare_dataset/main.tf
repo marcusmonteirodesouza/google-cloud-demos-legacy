@@ -13,6 +13,7 @@ resource "google_healthcare_fhir_store" "default" {
     bigquery_destination {
       dataset_uri = "bq://${google_bigquery_dataset.default_fhir_store.project}.${google_bigquery_dataset.default_fhir_store.dataset_id}"
       schema_config {
+        schema_type               = "ANALYTICS_V2"
         recursive_structure_depth = 2
       }
     }
